@@ -1,5 +1,5 @@
 void main() {
-  int day = 7;
+  int day = 3;
 
   switch (day) {
     case 1:
