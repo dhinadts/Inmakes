@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:inmakes_flutter_basics/data/dogs_info.dart';
-import 'package:inmakes_flutter_basics/dog_info.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,27 +11,35 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Dog App',
+      title: 'Module - 3- Flutter Basics',
       debugShowCheckedModeBanner: false,
-
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange, brightness: Brightness.light),
-        useMaterial3: true,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.deepPurple,
-          foregroundColor: Colors.yellow,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.white,
+          // brightness: Brightness.light,
         ),
-      ),
-      darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange, brightness: Brightness.dark),
-        useMaterial3: true,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.black,
-          foregroundColor: Colors.orange,
+        textTheme: ThemeData.light().textTheme.apply(
+          bodyColor: Colors.black,
+          displayColor: Colors.black,
         ),
+        iconTheme: const IconThemeData(color: Colors.blue),
+        cardTheme: CardThemeData(
+          color: Colors.white,
+          shadowColor: Colors.blueAccent,
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          margin: EdgeInsets.all(8),
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
+        useMaterial3: true,
       ),
-      themeMode: ThemeMode.system, // Change this to ThemeMode.light or ThemeMode.dark as needed
-      home: SafeArea(child: const MyHomePage(title: 'Dog App')),
+      home: const MyHomePage(title: 'Travelling'),
     );
   }
 }
@@ -52,48 +59,292 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+      appBar: AppBar(),
+      drawer: Drawer(
+        backgroundColor: Colors.white,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: const BoxDecoration(color: Colors.yellow),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Image.asset(
+                      'assets/images/young-woman-riding-bike.jpg',
+                      fit: BoxFit.fill,
+                      width: double.infinity,
+                      height: 200,
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.error),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Travelling',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const Text(
+                    'www.lambtoolsburg.com',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+
+            InkWell(
+              onTap: () {
+                // Handle navigation here
+                Navigator.pop(context);
+              },
+              child: const ListTile(
+                leading: Icon(Icons.home),
+                title: Text('Home'),
+              ),
+            ),
+
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const ListTile(
+                leading: Icon(Icons.bike_scooter),
+                title: Text('Cycling'),
+              ),
+            ),
+
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const ListTile(
+                leading: Icon(Icons.bus_alert),
+                title: Text('Bus'),
+              ),
+            ),
+
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const ListTile(
+                leading: Icon(Icons.airplanemode_active),
+                title: Text('Airplane'),
+              ),
+            ),
+
+            const Divider(height: 2),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 8,
+              ),
+              child: Text(
+                'Profile',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ),
+
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const ListTile(
+                leading: Icon(Icons.login),
+                title: Text('Login'),
+              ),
+            ),
+
+            const Divider(height: 2),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 8,
+              ),
+              child: Text(
+                'Communication',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ),
+
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const ListTile(
+                leading: Icon(Icons.share),
+                title: Text('Share'),
+              ),
+            ),
+
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const ListTile(
+                leading: Icon(Icons.rate_review),
+                title: Text('Rate Us'),
+              ),
+            ),
+          ],
+        ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            for (var dog in data)
-              Card(
-                child: ListTile(
-                  leading: CircleAvatar(
-                    child: ClipOval(
-                      child: Image.asset(
-                        'assets/${dog['image']}',
-                        fit: BoxFit.cover,
-                        width: 40,
-                        height: 40,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Icon(
-                            Icons.error,
-                            color: Colors.red,
-                            size: 40.0,
-                          );
-                        },
+      body: Container(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Travelling',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'www.lambtoolsburg.com',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  title: Text(dog['name'] ?? 'Unknown'),
-                  subtitle: Text(dog['description'] ?? 'No description'),
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DogDetailPage(dog: dog),
+                    Expanded(
+                      child: Image.asset(
+                        'assets/images/young-woman-riding-bike.jpg',
+                        height: 150,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.error),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ),
-          ],
+                const SizedBox(height: 16),
+                GridView(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                    childAspectRatio: 1.0,
+                  ),
+                  children: [
+                    Card(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.directions_walk,
+                            size: 48,
+                            color: Colors.blue,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Walking',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Card(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.directions_boat,
+                            size: 48,
+                            color: Colors.blue,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Boating',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Card(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.directions_bus,
+                            size: 48,
+                            color: Colors.blue,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Bus',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Card(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.directions_railway,
+                            size: 48,
+                            color: Colors.blue,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Train',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Card(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.pedal_bike, size: 48, color: Colors.blue),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Cycling',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Card(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.flight_takeoff,
+                            size: 48,
+                            color: Colors.blue,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Plane',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 }
-
