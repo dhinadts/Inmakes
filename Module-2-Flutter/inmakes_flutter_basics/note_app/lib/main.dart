@@ -84,7 +84,7 @@ class _NoteAppState extends State<NoteApp> {
                       };
                       await QueryHelper.insertNote(noteData);
                       await _fetchNotes();
-                      Backontap().onButtonTapped(context);
+                      Backontap().onButtonTapped();
                     },
                     child: const Text('Add Note'),
                   ),
@@ -101,8 +101,18 @@ class _NoteAppState extends State<NoteApp> {
     setState(() {
       _isLoadingNote = true;
     });
-    // Fetch notes from the database
-    _allNotes = await QueryHelper.getNotes();
+    try {
+      _allNotes = await QueryHelper.getNotes();
+    } catch (e) {
+      if (e.toString().contains('no such table')) {
+        final db = await QueryHelper.db();
+        await QueryHelper.createTable(db);
+        // Try again after creating the table
+        _allNotes = await QueryHelper.getNotes();
+      } else {
+        _allNotes = [];
+      }
+    }
     setState(() {
       _isLoadingNote = false;
     });
@@ -116,11 +126,23 @@ class _NoteAppState extends State<NoteApp> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-          ],
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(_allNotes[index]['title'] ?? 'No Title'),
+              subtitle: Text(
+                _allNotes[index]['description'] ?? 'No Description',
+              ),
+              trailing: Text(_allNotes[index]['time'] ?? 'No Time'),
+              onTap: () {
+                _titleController.text = _allNotes[index]['title'] ?? '';
+                _descriptionController.text =
+                    _allNotes[index]['description'] ?? '';
+                showBottomSheetContent(_allNotes[index]['id']);
+              },
+            );
+          },
+          itemCount: _allNotes.length,
         ),
       ),
       floatingActionButton: FloatingActionButton(

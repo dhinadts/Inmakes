@@ -4,10 +4,12 @@ import 'package:sqflite/sqflite.dart';
 class QueryHelper {
   static Future<void> createTable(sql.Database database) async {
     await database.execute(
-      """CREATE TABLE note(id INTEGER PRIMARY KEY AUTOINCREMENT, 
+      """CREATE TABLE IF NOT EXISTS notes(
+      id INTEGER PRIMARY KEY AUTOINCREMENT, 
       title TEXT, 
       description TEXT,
-      time TIMESTAMP DEFAULT CURRENT_TIMESTAMP)""",
+      time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )""",
     );
   }
 
