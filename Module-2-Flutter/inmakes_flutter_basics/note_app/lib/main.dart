@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/DBHelper/database_helper.dart';
+import 'package:note_app/Helper/BackOnTap.dart';
 
 void main() {
   runApp(const MyApp());
@@ -43,6 +44,12 @@ class _NoteAppState extends State<NoteApp> {
     _fetchNotes();
   }
 
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+
   void showBottomSheetContent(int? id) async {
     showModalBottomSheet(
       context: context,
@@ -76,8 +83,8 @@ class _NoteAppState extends State<NoteApp> {
                         'time': DateTime.now().toIso8601String(),
                       };
                       await QueryHelper.insertNote(noteData);
-                      _fetchNotes();
-                      Navigator.pop(context);
+                      await _fetchNotes();
+                      Backontap().onButtonTapped(context);
                     },
                     child: const Text('Add Note'),
                   ),
