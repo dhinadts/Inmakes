@@ -1,0 +1,28 @@
+lib/
+├── main.dart
+├── bootstrap/                 # App entrypoint logic
+│   └── bootstrap.dart         # Initializes Firebase, etc.
+├── core/                      # Global utilities, themes, routing
+│   ├── constants/             # App-wide constants
+│   ├── services/              # Firestore, storage, auth helpers
+│   ├── routing/               # go_router setup
+│   └── themes/                # ThemeData for light/dark mode
+├── common/                    # Reusable UI widgets
+│   ├── widgets/
+│   └── providers/             # Global non-feature-specific providers
+├── features/                  # All features grouped modularly
+│   ├── auth/
+│   │   ├── data/              # Repos, models
+│   │   ├── domain/            # Business logic
+│   │   ├── presentation/      # Screens, widgets
+│   │   └── providers.dart
+│   ├── user_profile/
+│   ├── restaurants/
+│   ├── menu/
+│   ├── cart/
+│   ├── orders/
+│   ├── bookings/
+│   ├── promotions/
+│   └── reviews/
+├── firebase_options.dart      # From FlutterFire CLI
+└── l10n/                      # Localization (if any)
