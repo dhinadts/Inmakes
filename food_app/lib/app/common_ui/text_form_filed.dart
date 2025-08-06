@@ -31,6 +31,7 @@ class InputTextFormField extends StatelessWidget {
       validator: validator,
       obscureText: obscureText,
       onChanged: onChanged,
+      style: const TextStyle(color: Colors.black), // 👈 Added this line
       decoration: decoration.copyWith(
         labelText: label,
         border: OutlineInputBorder(

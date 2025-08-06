@@ -12,7 +12,7 @@ class LoginView extends StatelessWidget {
     final controller = Get.put(LoginController());
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Login")),
+      appBar: AppBar(title: const Text("Food App Login")),
       body: Container(
         color: Colors.white,
         child: Center(
@@ -22,12 +22,17 @@ class LoginView extends StatelessWidget {
               children: [
                 const Text(
                   "Login",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.teal,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 16),
 
                 InputTextFormField(
                   controller: controller.emailController,
+
                   onChanged: (value) {
                     controller.emailController.value = TextEditingValue(
                       text: value.toLowerCase(),
@@ -36,6 +41,7 @@ class LoginView extends StatelessWidget {
                   },
                   decoration: InputDecoration(
                     labelText: 'Email',
+
                     errorText:
                         !controller.isEmailValid &&
                             controller.emailController.text.isNotEmpty
@@ -87,7 +93,7 @@ class LoginView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onChanged: (value) => null,
+                  onChanged: (value) {},
                 ),
 
                 const SizedBox(height: 16),
@@ -116,6 +122,14 @@ class LoginView extends StatelessWidget {
                         child: const Text("Sign Up"),
                       ),
                     ],
+                  ),
+                ),
+                const SizedBox(height: 16),
+                TextButton(
+                  onPressed: controller.goToRegister,
+                  child: Text(
+                    "Reset Password?",
+                    style: const TextStyle(color: Colors.red, fontSize: 16),
                   ),
                 ),
               ],

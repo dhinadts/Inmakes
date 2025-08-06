@@ -1,6 +1,5 @@
 // lib/app/modules/login/controllers/login_controller.dart
 import 'package:flutter/material.dart';
-import 'package:food_app/app/modules/home/views/home_view.dart';
 import 'package:food_app/app/modules/register/views/register_view.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,8 +17,11 @@ class LoginController extends GetxController {
 
   void login() async {
     if (!isEmailValid) {
-      Get.snackbar('Error', 'Invalid email format',
-          snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar(
+        'Error',
+        'Invalid email format',
+        snackPosition: SnackPosition.BOTTOM,
+      );
       return;
     }
 
@@ -32,15 +34,20 @@ class LoginController extends GetxController {
       );
 
       final uid = userCred.user!.uid;
-      final doc =
-          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      final doc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .get();
       final role = doc.data()?['role'] ?? 'User';
       final userId = doc.data()?['uid'] ?? uid;
 
-      Get.offAll(() => HomeView());
+      Get.offNamed('/home', arguments: {'role': role, 'userId': userId});
     } catch (e) {
-      Get.snackbar('Login Error', e.toString(),
-          snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar(
+        'Login Error',
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
     } finally {
       isLoading.value = false;
     }

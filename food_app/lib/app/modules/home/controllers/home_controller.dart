@@ -3,22 +3,34 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeController extends GetxController {
-  final count = 0.obs;
-  final role = ''.obs; // 👈 Observable role
+  RxString role = ''.obs; // 👈 safer with nullable observable
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    fetchUserRole();
+    // Initialize any necessary data here
+    await handleNavigation(Get.find<FirebaseAuth>().currentUser!);
   }
 
-  void fetchUserRole() async {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid != null) {
-      final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
-      role.value = doc.data()?['role'] ?? 'User';
-    }
+  Future<void> fetchUserRole(String uid) async {
+    // Get.lazyPut(() => FirebaseAuth());
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .get();
+
+    role.value = doc.data()?['role'] ?? '';
   }
 
-  void increment() => count.value++;
+  Future<void> handleNavigation(User user) async {
+    await fetchUserRole(user.uid); // fetch latest role
+
+    final userRole = role.value;
+    Get.offNamed(
+      '/dashboard',
+      arguments: [
+        {"userName": user.displayName ?? '', 'role': userRole},
+      ],
+    );
+  }
 }
