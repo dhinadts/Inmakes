@@ -19,6 +19,7 @@ class HomeView extends StatelessWidget {
           }
           if (snapshot.connectionState == ConnectionState.active) {
             final user = snapshot.data;
+            debugPrint("${user}user details");
 
             if (user != null) {
               // Defer role fetch + navigation after current frame

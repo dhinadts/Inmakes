@@ -1,36 +1,54 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController {
-  RxString role = ''.obs; // 👈 safer with nullable observable
+  RxString role = ''.obs;
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
-    // Initialize any necessary data here
-    await handleNavigation(Get.find<FirebaseAuth>().currentUser!);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initUser(); // safely run after build
+    });
   }
 
-  Future<void> fetchUserRole(String uid) async {
-    // Get.lazyPut(() => FirebaseAuth());
+  Future<void> _initUser() async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      // User not signed in — handle accordingly
+      Get.offNamed('/login');
+      return;
+    }
+
+    await handleNavigation(user);
+  }
+
+  Future<String> fetchUserRole(String uid) async {
     final doc = await FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
         .get();
 
-    role.value = doc.data()?['role'] ?? '';
+    final fetchedRole = doc.data()?['role'] ?? 'User';
+    role.value = fetchedRole;
+    return fetchedRole;
   }
 
   Future<void> handleNavigation(User user) async {
-    await fetchUserRole(user.uid); // fetch latest role
+    final fetchedRole = await fetchUserRole(user.uid);
 
-    final userRole = role.value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString("role", fetchedRole);
+
+    print("role.value ==== $fetchedRole");
+
     Get.offNamed(
       '/dashboard',
-      arguments: [
-        {"userName": user.displayName ?? '', 'role': userRole},
-      ],
+      arguments: [{"userName": user.displayName ?? '', "role": fetchedRole}],
     );
   }
 }

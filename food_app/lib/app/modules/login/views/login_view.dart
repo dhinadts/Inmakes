@@ -9,7 +9,7 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(LoginController());
+    final controller = Get.find<LoginController>();
 
     return Scaffold(
       appBar: AppBar(title: const Text("Food App Login")),
@@ -32,7 +32,6 @@ class LoginView extends StatelessWidget {
 
                 InputTextFormField(
                   controller: controller.emailController,
-
                   onChanged: (value) {
                     controller.emailController.value = TextEditingValue(
                       text: value.toLowerCase(),
@@ -41,7 +40,6 @@ class LoginView extends StatelessWidget {
                   },
                   decoration: InputDecoration(
                     labelText: 'Email',
-
                     errorText:
                         !controller.isEmailValid &&
                             controller.emailController.text.isNotEmpty
@@ -124,12 +122,14 @@ class LoginView extends StatelessWidget {
                     ],
                   ),
                 ),
+
                 const SizedBox(height: 16),
+
                 TextButton(
                   onPressed: controller.goToRegister,
-                  child: Text(
+                  child: const Text(
                     "Reset Password?",
-                    style: const TextStyle(color: Colors.red, fontSize: 16),
+                    style: TextStyle(color: Colors.red, fontSize: 16),
                   ),
                 ),
               ],

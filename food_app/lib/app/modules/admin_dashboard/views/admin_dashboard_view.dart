@@ -11,13 +11,6 @@ class AdminDashboardView extends GetView<AdminDashboardController> {
   Widget build(BuildContext context) {
     Get.lazyPut(() => AdminDashboardController());
     return Scaffold(
-      appBar: AppBar(
-        title: Text('User Id: ${controller.userId}'),
-        backgroundColor: Colors.deepOrangeAccent,
-        actions: [
-          IconButton(icon: Icon(Icons.shopping_cart), onPressed: () {}),
-        ],
-      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(

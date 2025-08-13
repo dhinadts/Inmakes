@@ -58,7 +58,7 @@ class AppPages {
       page: () => const HomeView(),
       binding: HomeBinding(),
     ),
-    
+
     GetPage(
       name: _Paths.LOGIN,
       page: () => const LoginView(),
@@ -73,8 +73,11 @@ class AppPages {
       name: _Paths.DASHBOARD,
       page: () => const DashboardView(),
       binding: DashboardBinding(),
+      arguments: [
+        {"role": "", "userId": ""},
+      ],
     ),
-    GetPage(name: Routes.AUTH_WRAPPER, page: () => const AuthWrapper()),
+    GetPage(name: Routes.AUTH_WRAPPER, page: () => AuthWrapper()),
     GetPage(
       name: _Paths.ADMOB_HELPER,
       page: () => const AdmobHelperView(),
@@ -107,7 +110,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.FOOD_ORDER_MANAGEMENT,
-      page: () => const FoodOrderManagementView(),
+      page: () => const FoodOrderListView(),
       binding: FoodOrderManagementBinding(),
     ),
   ];

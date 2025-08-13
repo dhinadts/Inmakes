@@ -10,14 +10,6 @@ class UserDashboardView extends GetView<UserDashboardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Admin Name', style: TextStyle(fontSize: 20)),
-        centerTitle: true,
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
-        ],
-      ),
       body: const Center(
         child: Text(
           'Welcome to Admin Dashboard',
