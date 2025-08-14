@@ -7,6 +7,8 @@ import '../modules/admob_helper/bindings/admob_helper_binding.dart';
 import '../modules/admob_helper/views/admob_helper_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
+import '../modules/food-description/bindings/food_description_binding.dart';
+import '../modules/food-description/views/food_description_view.dart';
 import '../modules/food-order-management/bindings/food_order_management_binding.dart';
 import '../modules/food-order-management/views/food_order_management_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -58,7 +60,6 @@ class AppPages {
       page: () => const HomeView(),
       binding: HomeBinding(),
     ),
-
     GetPage(
       name: _Paths.LOGIN,
       page: () => const LoginView(),
@@ -112,6 +113,11 @@ class AppPages {
       name: _Paths.FOOD_ORDER_MANAGEMENT,
       page: () => const FoodOrderListView(),
       binding: FoodOrderManagementBinding(),
+    ),
+    GetPage(
+      name: _Paths.FOOD_DESCRIPTION,
+      page: () => const FoodDescriptionView(),
+      binding: FoodDescriptionBinding(),
     ),
   ];
 }

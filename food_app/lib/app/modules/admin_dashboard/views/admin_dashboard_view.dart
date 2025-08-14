@@ -243,13 +243,21 @@ class AdminDashboardView extends GetView<AdminDashboardController> {
   }
 
   Widget _collectionCard(String title, String price, String imageUrl) {
-    return Column(
-      children: [
-        Image.network(imageUrl, height: 100, fit: BoxFit.cover),
-        SizedBox(height: 5),
-        Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-        Text('Starts from $price'),
-      ],
+    return InkWell(
+      onTap: () {
+        var obj = [
+          {"title": title, "price": price, "imageUrl": imageUrl},
+        ];
+        Get.toNamed("/food-description", arguments: obj);
+      },
+      child: Column(
+        children: [
+          Image.network(imageUrl, height: 100, fit: BoxFit.cover),
+          SizedBox(height: 5),
+          Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('Starts from $price'),
+        ],
+      ),
     );
   }
 
