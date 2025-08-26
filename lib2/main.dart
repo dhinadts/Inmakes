@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:food_app/splash/splash_gate.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // Firebase imports
@@ -61,40 +60,16 @@ class MyApp extends ConsumerWidget {
       routes: {'/settings': (_) => const SettingsScreen()},
       home: authState.when(
         data: (user) {
-          if (user == null) {
-            return const LoginScreen();
-          }
-          // The authenticated user is passed to a new widget
-          return const AuthGate();
+          if (user == null) return const LoginScreen();
+          // role-based routing
+          final role = ref.watch(userRoleProvider).value ?? 'user';
+          if (role == 'admin') return const AdminDashboard();
+          return const UserDashboard();
         },
         loading: () =>
             const Scaffold(body: Center(child: CircularProgressIndicator())),
         error: (e, _) => Scaffold(body: Center(child: Text('Auth error: $e'))),
       ),
-    );
-  }
-}
-
-// New widget to handle role-based navigation
-class AuthGate extends ConsumerWidget {
-  const AuthGate({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // Now we can safely watch the role provider
-    final roleState = ref.watch(userRoleProvider);
-
-    return roleState.when(
-      data: (role) {
-        if (role == 'Admin') {
-          return const UserDashboard();
-        }
-        return const AdminDashboard();
-      },
-      loading: () =>
-          const Scaffold(body: Center(child: CircularProgressIndicator())),
-      error: (e, _) =>
-          Scaffold(body: Center(child: Text('Role load error: $e'))),
     );
   }
 }
