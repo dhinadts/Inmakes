@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../settings/settings_screen.dart';
+import 'package:food_app/settings/settings_screen.dart';
 import 'food_list_screen.dart';
 import 'order_list_screen.dart';
 import 'booking_list_screen.dart';
@@ -15,16 +15,14 @@ class AdminDashboard extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Admin Dashboard'),
         actions: [
-          /* IconButton(
+          IconButton(
             onPressed: () => Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (_) => const AdminTableManagementScreen(),
-              ),
+              MaterialPageRoute(builder: (_) => const TableManagementScreen()),
             ),
             icon: const Icon(Icons.table_bar),
             tooltip: 'Manage Tables',
-          ), */
+          ),
           IconButton(
             onPressed: () => Navigator.push(
               context,
@@ -42,12 +40,11 @@ class AdminDashboard extends StatelessWidget {
         children: [
           _card(context, 'Food Menu', Icons.fastfood, const FoodListScreen()),
           _card(context, 'Orders', Icons.receipt_long, const OrderListScreen()),
-          // _card(context, 'Bookings', Icons.event_seat, const BookingListScreen()),
           _card(
             context,
-            'Tables',
+            'Bookings',
             Icons.event_seat,
-            AdminTableManagementScreen(),
+            const BookingListScreen(),
           ),
         ],
       ),

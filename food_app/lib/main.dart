@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:food_app/splash/splash_gate.dart';
+import 'package:food_app/services/table_service.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // Firebase imports
@@ -19,6 +19,7 @@ Future<void> main() async {
 
   await MobileAds.instance.initialize();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await TableService().createDefaultTables();
 
   // Load persisted theme
   final prefs = await SharedPreferences.getInstance();

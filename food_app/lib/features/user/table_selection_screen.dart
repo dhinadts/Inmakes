@@ -1,65 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:food_app/features/user/food_menu_screen.dart';
-import '../../widgets/table_grid.dart';
-// import '../../core/providers.dart'; // in case you have a provider, fallback to direct instance otherwise
+import 'package:food_app/models/table_info.dart';
+import 'package:food_app/services/table_service.dart';
+// import '../../models/table_model.dart';
+// import '../../services/table_service.dart';
 
-class TableSelectionScreen extends ConsumerStatefulWidget {
+final tableStreamProvider = StreamProvider<List<TableModel>>((ref) {
+  return TableService().getTables();
+});
+
+class TableSelectionScreen extends ConsumerWidget {
   const TableSelectionScreen({super.key});
 
   @override
-  ConsumerState<TableSelectionScreen> createState() =>
-      _TableSelectionScreenState();
-}
-
-class _TableSelectionScreenState extends ConsumerState<TableSelectionScreen> {
-  final TextEditingController _orderIdCtrl = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    final service = ref.read(firebaseServiceProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final asyncTables = ref.watch(tableStreamProvider);
+    final userId = FirebaseAuth.instance.currentUser?.uid ?? "";
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Choose a Table')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            /* TextField(
-              controller: _orderIdCtrl,
-              decoration: const InputDecoration(
-                labelText: 'Order ID to assign',
-                border: OutlineInputBorder(),
+      appBar: AppBar(title: const Text("Choose Table")),
+      body: asyncTables.when(
+        data: (tables) => ListView.builder(
+          itemCount: tables.length,
+          itemBuilder: (context, index) {
+            final table = tables[index];
+            return Card(
+              child: ListTile(
+                title: Text("Table ${table.id} - Capacity: ${table.capacity}"),
+                subtitle: Text("Status: ${table.status}"),
+                trailing: table.status == "available"
+                    ? ElevatedButton(
+                        onPressed: () async {
+                          await TableService().bookTable(table.id, userId);
+                        },
+                        child: const Text("Book"),
+                      )
+                    : Text("Booked", style: TextStyle(color: Colors.red)),
               ),
-            ),
-            const SizedBox(height: 16), */
-            Expanded(
-              child: TableGrid(
-                onSelect: (t) async {
-                  if (_orderIdCtrl.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Enter an Order ID first')),
-                    );
-                    return;
-                  }
-                  await service.assignTableToOrder(
-                    _orderIdCtrl.text.trim(),
-                    t.number,
-                  );
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          'Assigned Table ${t.number} to Order ${_orderIdCtrl.text}',
-                        ),
-                      ),
-                    );
-                  }
-                },
-              ),
-            ),
-          ],
+            );
+          },
         ),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (e, st) => Center(child: Text("Error: $e")),
       ),
     );
   }

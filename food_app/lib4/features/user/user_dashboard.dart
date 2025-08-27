@@ -91,6 +91,12 @@ class UserDashboard extends StatelessWidget {
               children: [
                 _card(
                   context,
+                  'Choose Table',
+                  Icons.table_bar,
+                  const TableSelectionScreen(),
+                ),
+                _card(
+                  context,
                   'Food order',
                   Icons.fastfood,
                   const FoodMenuScreen(),
@@ -98,9 +104,9 @@ class UserDashboard extends StatelessWidget {
 
                 _card(
                   context,
-                  'Choose Table',
-                  Icons.table_bar,
-                  const TableSelectionScreen(),
+                  'Bookings',
+                  Icons.event_seat,
+                  const BookingsScreen(),
                 ),
               ],
             ),
