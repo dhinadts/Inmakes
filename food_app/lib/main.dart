@@ -28,10 +28,9 @@ Future<void> main() async {
 
   runApp(
     ProviderScope(
-      /* overrides: [
-        // ✅ Correct way to override provider with an initial value
+      overrides: [
         themeProvider.overrideWith(() => ThemeController(initialTheme)),
-      ], */
+      ],
       child: MyApp(),
     ),
   );

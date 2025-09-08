@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../settings/settings_screen.dart';
 import 'food_list_screen.dart';
 import 'order_list_screen.dart';
-import 'booking_list_screen.dart';
 
 import 'table_management_screen.dart';
 
