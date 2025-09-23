@@ -1,7 +1,7 @@
 # 🍴 Food Ordering & Table Booking App
 
 A **Flutter + Firebase** powered application inspired by Swiggy, designed to provide seamless food ordering and restaurant table booking experiences.  
-This project includes both a **User App** (Android/iOS) and an **Admin Panel** (Flutter Web) for complete real-time management.
+This project includes both a **User App** (Flutter Mobile - Android) and an **Admin Panel** (Flutter Mobile- Android) for complete real-time management.
 
 ---
 
