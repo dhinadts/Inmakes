@@ -37,27 +37,35 @@ This project includes both a **User App** (Android/iOS) and an **Admin Panel** (
 
 ---
 
-## 📱 Screenshots & Demo
-*(Add screenshots or demo video here once available)*
-![Login Screen](assets/screenshots/1.jpg)
+## 📱 Screenshots
 
-![Admin Dashboard](assets/screenshots/2.jpg)
-![Settings](assets/screenshots/3.jpg)
-![Add Item](assets/screenshots/add_item.jpg)
-![Food menus](assets/screenshots/food_menus.jpg)
-![Orders in Admin](assets/screenshots/Orders_admin.jpg)
-![Order Status](assets/screenshots/Order_status.jpg)
-![Table Management](assets/screenshots/table_management.jpg)
+### Admin Panel
+<p align="center">
+  <img src="assets/screenshots/1.jpg" width="180"/>
+  <img src="assets/screenshots/2.jpg" width="180"/>
+  <img src="assets/screenshots/3.jpg" width="180"/>
+  <img src="assets/screenshots/add_item.jpg" width="180"/>
+  <img src="assets/screenshots/food_menus.jpg" width="180"/>
+</p>
 
+<p align="center">
+  <img src="assets/screenshots/Orders_admin.jpg" width="180"/>
+  <img src="assets/screenshots/Order_status.jpg" width="180"/>
+  <img src="assets/screenshots/table_management.jpg" width="180"/>
+</p>
 
-![User Dashboard](assets/screenshots/user_dashboard.jpg)
-![Table Selection User](assets/screenshots/Table_selection_user.jpg)
-![User Cart](assets/screenshots/User_cart.jpg)
-![User payment](assets/screenshots/user_payment.jpg)
-![User Checkout](assets/screenshots/User-checkout.jpg)
-![Payment Options](assets/screenshots/Payment_options.jpg)
-![Payment Success](assets/screenshots/Payment_success.jpg)
+### User App
+<p align="center">
+  <img src="assets/screenshots/user_dashboard.jpg" width="180"/>
+  <img src="assets/screenshots/Table_selection_user.jpg" width="180"/>
+  <img src="assets/screenshots/User_cart.jpg" width="180"/>
+  <img src="assets/screenshots/User-checkout.jpg" width="180"/>
+  <img src="assets/screenshots/Payment_options.jpg" width="180"/>
+</p>
 
+<p align="center">
+  <img src="assets/screenshots/Payment_success.jpg" width="180"/>
+</p>
 ---
 
 ## 🎯 Key Highlights
