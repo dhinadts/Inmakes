@@ -1,0 +1,35 @@
+plugins {
+    id("com.android.application")
+    kotlin("android")
+}
+
+android {
+    compileSdk = 34
+
+    defaultConfig {
+        applicationId = "com.example.note_app"
+        minSdk = 21
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+        isCoreLibraryDesugaringEnabled = true
+    }
+     kotlinOptions {
+            jvmTarget = '1.8'
+        }
+
+    ndkVersion = "27.0.12077973"
+}
+
+dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4' // Or a compatible version
+    // implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")
+
+    implementation("androidx.core:core-ktx:1.10.1")
+    // other dependencies...
+}
