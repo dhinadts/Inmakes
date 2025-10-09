@@ -1,0 +1,12 @@
+# Force GitHub to treat all Dart files as the main language
+*.dart linguist-detectable=true
+*.cpp linguist-detectable=false
+*.h linguist-detectable=false
+*.c linguist-detectable=false
+*.cc linguist-detectable=false
+
+# Optionally ignore build folders
+/build/* linguist-vendored
+/.dart_tool/* linguist-vendored
+/.idea/* linguist-vendored
+/.vscode/* linguist-vendored
